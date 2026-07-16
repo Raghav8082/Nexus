@@ -14,11 +14,15 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ProjectsModule } from './projects/projects.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { AuditModule } from './audit/audit.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
     // Config — loads .env
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ 
+      isGlobal: true,
+      envFilePath: ['.env', '../../.env'],
+    }),
 
     // Rate limiting — sliding window via Redis
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
@@ -41,6 +45,7 @@ import { AuditModule } from './audit/audit.module';
     ProjectsModule,
     NotificationsModule,
     AuditModule,
+    PrismaModule,
   ],
 })
 export class AppModule {}

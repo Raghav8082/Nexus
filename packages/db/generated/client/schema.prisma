@@ -1,0 +1,270 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/client"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── MULTI-TENANCY ───────────────────────────────────────────────
+model Tenant {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  plan      String   @default("FREE") // FREE | PRO | ENTERPRISE
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users          User[]
+  accounts       Account[]
+  employees      Employee[]
+  purchaseOrders PurchaseOrder[]
+  inventoryItems InventoryItem[]
+  projects       Project[]
+  auditLogs      AuditLog[]
+}
+
+// ─── USERS & ROLES ───────────────────────────────────────────────
+enum Role {
+  SUPER_ADMIN
+  TENANT_ADMIN
+  MANAGER
+  VIEWER
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  role      Role     @default(VIEWER)
+  isActive  Boolean  @default(true)
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  notifications Notification[]
+  auditLogs     AuditLog[]
+
+  @@index([tenantId])
+  @@index([email])
+}
+
+// ─── FINANCE ─────────────────────────────────────────────────────
+model Account {
+  id        String   @id @default(cuid())
+  code      String
+  name      String
+  type      String // ASSET | LIABILITY | EQUITY | REVENUE | EXPENSE
+  currency  String   @default("INR")
+  balance   Decimal  @default(0) @db.Decimal(18, 2)
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  journalLines JournalLine[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+}
+
+model JournalEntry {
+  id          String   @id @default(cuid())
+  reference   String
+  description String?
+  date        DateTime
+  tenantId    String
+  isLocked    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  lines JournalLine[]
+
+  @@index([tenantId])
+}
+
+model JournalLine {
+  id             String       @id @default(cuid())
+  journalEntryId String
+  journalEntry   JournalEntry @relation(fields: [journalEntryId], references: [id])
+  accountId      String
+  account        Account      @relation(fields: [accountId], references: [id])
+  debit          Decimal      @default(0) @db.Decimal(18, 2)
+  credit         Decimal      @default(0) @db.Decimal(18, 2)
+  description    String?
+}
+
+model Invoice {
+  id         String   @id @default(cuid())
+  number     String
+  type       String // AP | AR
+  status     String   @default("DRAFT") // DRAFT | PENDING | APPROVED | PAID | OVERDUE
+  vendorName String?
+  clientName String?
+  amount     Decimal  @db.Decimal(18, 2)
+  currency   String   @default("INR")
+  dueDate    DateTime
+  tenantId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// ─── HR ──────────────────────────────────────────────────────────
+model Employee {
+  id           String     @id @default(cuid())
+  employeeCode String
+  firstName    String
+  lastName     String
+  email        String
+  phone        String?
+  department   String
+  designation  String
+  salary       Decimal    @db.Decimal(18, 2)
+  joinedAt     DateTime
+  isActive     Boolean    @default(true)
+  managerId    String?
+  manager      Employee?  @relation("EmployeeHierarchy", fields: [managerId], references: [id])
+  reports      Employee[] @relation("EmployeeHierarchy")
+  tenantId     String
+  tenant       Tenant     @relation(fields: [tenantId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  leaveRequests LeaveRequest[]
+  payrollRuns   PayrollRun[]
+
+  @@unique([tenantId, employeeCode])
+  @@index([tenantId])
+}
+
+model LeaveRequest {
+  id         String   @id @default(cuid())
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  leaveType  String // ANNUAL | SICK | UNPAID | MATERNITY | PATERNITY
+  startDate  DateTime
+  endDate    DateTime
+  status     String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  reason     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model PayrollRun {
+  id          String    @id @default(cuid())
+  employeeId  String
+  employee    Employee  @relation(fields: [employeeId], references: [id])
+  period      String // e.g. "2026-04"
+  grossPay    Decimal   @db.Decimal(18, 2)
+  deductions  Decimal   @db.Decimal(18, 2)
+  netPay      Decimal   @db.Decimal(18, 2)
+  status      String    @default("PENDING") // PENDING | PROCESSED | PAID
+  processedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([employeeId])
+}
+
+// ─── SUPPLY CHAIN ────────────────────────────────────────────────
+model InventoryItem {
+  id                String   @id @default(cuid())
+  sku               String
+  name              String
+  quantity          Int      @default(0)
+  reorderPoint      Int      @default(10)
+  unitCost          Decimal  @db.Decimal(18, 2)
+  warehouseLocation String?
+  tenantId          String
+  tenant            Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@unique([tenantId, sku])
+  @@index([tenantId])
+}
+
+model PurchaseOrder {
+  id          String   @id @default(cuid())
+  poNumber    String
+  vendorName  String
+  vendorEmail String?
+  status      String   @default("DRAFT") // DRAFT | SENT | RECEIVED | CANCELLED
+  totalAmount Decimal  @db.Decimal(18, 2)
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([tenantId, poNumber])
+  @@index([tenantId])
+}
+
+// ─── PROJECTS ────────────────────────────────────────────────────
+model Project {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  status      String    @default("ACTIVE")
+  budget      Decimal   @db.Decimal(18, 2)
+  spent       Decimal   @default(0) @db.Decimal(18, 2)
+  startDate   DateTime
+  endDate     DateTime?
+  tenantId    String
+  tenant      Tenant    @relation(fields: [tenantId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  milestones Milestone[]
+
+  @@index([tenantId])
+}
+
+model Milestone {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id])
+  title       String
+  dueDate     DateTime
+  isCompleted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+// ─── NOTIFICATIONS ───────────────────────────────────────────────
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  body      String
+  type      String // INFO | WARNING | ERROR | SUCCESS
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+// ─── AUDIT LOG ───────────────────────────────────────────────────
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  tenantId   String
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  action     String // CREATE | UPDATE | DELETE | LOGIN | LOGOUT
+  resource   String // e.g. "Invoice", "Employee"
+  resourceId String?
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([tenantId])
+  @@index([userId])
+}
