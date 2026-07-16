@@ -51,6 +51,7 @@ model User {
 
   notifications Notification[]
   auditLogs     AuditLog[]
+  refreshToken  String?
 
   @@index([tenantId])
   @@index([email])

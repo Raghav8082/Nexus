@@ -142,7 +142,8 @@ exports.Prisma.UserScalarFieldEnum = {
   isActive: 'isActive',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  refreshToken: 'refreshToken'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {

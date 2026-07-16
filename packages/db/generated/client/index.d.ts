@@ -3473,6 +3473,7 @@ export namespace Prisma {
     tenantId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    refreshToken: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3486,6 +3487,7 @@ export namespace Prisma {
     tenantId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    refreshToken: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -3499,6 +3501,7 @@ export namespace Prisma {
     tenantId: number
     createdAt: number
     updatedAt: number
+    refreshToken: number
     _all: number
   }
 
@@ -3514,6 +3517,7 @@ export namespace Prisma {
     tenantId?: true
     createdAt?: true
     updatedAt?: true
+    refreshToken?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -3527,6 +3531,7 @@ export namespace Prisma {
     tenantId?: true
     createdAt?: true
     updatedAt?: true
+    refreshToken?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -3540,6 +3545,7 @@ export namespace Prisma {
     tenantId?: true
     createdAt?: true
     updatedAt?: true
+    refreshToken?: true
     _all?: true
   }
 
@@ -3626,6 +3632,7 @@ export namespace Prisma {
     tenantId: string
     createdAt: Date
     updatedAt: Date
+    refreshToken: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -3656,6 +3663,7 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    refreshToken?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
@@ -3673,6 +3681,7 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    refreshToken?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3687,6 +3696,7 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    refreshToken?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3717,6 +3727,7 @@ export namespace Prisma {
       tenantId: string
       createdAt: Date
       updatedAt: Date
+      refreshToken: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4123,6 +4134,7 @@ export namespace Prisma {
     readonly tenantId: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly refreshToken: FieldRef<"User", 'String'>
   }
     
 
@@ -17720,7 +17732,8 @@ export namespace Prisma {
     isActive: 'isActive',
     tenantId: 'tenantId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    refreshToken: 'refreshToken'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -18167,6 +18180,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    refreshToken?: StringNullableFilter<"User"> | string | null
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     notifications?: NotificationListRelationFilter
     auditLogs?: AuditLogListRelationFilter
@@ -18183,6 +18197,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    refreshToken?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
     notifications?: NotificationOrderByRelationAggregateInput
     auditLogs?: AuditLogOrderByRelationAggregateInput
@@ -18202,6 +18217,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    refreshToken?: StringNullableFilter<"User"> | string | null
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     notifications?: NotificationListRelationFilter
     auditLogs?: AuditLogListRelationFilter
@@ -18218,6 +18234,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    refreshToken?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -18237,6 +18254,7 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type AccountWhereInput = {
@@ -19373,6 +19391,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
     tenant: TenantCreateNestedOneWithoutUsersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
@@ -19389,6 +19408,7 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
   }
@@ -19403,6 +19423,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
@@ -19419,6 +19440,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -19434,6 +19456,7 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -19446,6 +19469,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -19459,6 +19483,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountCreateInput = {
@@ -20755,6 +20780,21 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type TenantRelationFilter = {
     is?: TenantWhereInput
     isNot?: TenantWhereInput
@@ -20764,6 +20804,11 @@ export namespace Prisma {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
     none?: NotificationWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type NotificationOrderByRelationAggregateInput = {
@@ -20781,6 +20826,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    refreshToken?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -20794,6 +20840,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    refreshToken?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -20807,6 +20854,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    refreshToken?: SortOrder
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -20817,6 +20865,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -20905,26 +20971,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type JournalEntryCountOrderByAggregateInput = {
     id?: SortOrder
     reference?: SortOrder
@@ -20953,24 +20999,6 @@ export namespace Prisma {
     tenantId?: SortOrder
     isLocked?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type JournalEntryRelationFilter = {
@@ -21965,6 +21993,10 @@ export namespace Prisma {
     set?: $Enums.Role
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type TenantUpdateOneRequiredWithoutUsersNestedInput = {
     create?: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
     connectOrCreate?: TenantCreateOrConnectWithoutUsersInput
@@ -22105,10 +22137,6 @@ export namespace Prisma {
     connectOrCreate?: JournalLineCreateOrConnectWithoutJournalEntryInput | JournalLineCreateOrConnectWithoutJournalEntryInput[]
     createMany?: JournalLineCreateManyJournalEntryInputEnvelope
     connect?: JournalLineWhereUniqueInput | JournalLineWhereUniqueInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type JournalLineUpdateManyWithoutJournalEntryNestedInput = {
@@ -22590,43 +22618,6 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
-  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
-  }
-
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -22639,6 +22630,16 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22667,6 +22668,33 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -22753,6 +22781,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
     notifications?: NotificationCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
   }
@@ -22767,6 +22796,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
   }
@@ -23031,6 +23061,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    refreshToken?: StringNullableFilter<"User"> | string | null
   }
 
   export type AccountUpsertWithWhereUniqueWithoutTenantInput = {
@@ -24645,6 +24676,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
     tenant: TenantCreateNestedOneWithoutUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
   }
@@ -24660,6 +24692,7 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -24689,6 +24722,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
   }
@@ -24704,6 +24738,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -24717,6 +24752,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
     tenant: TenantCreateNestedOneWithoutUsersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
@@ -24732,6 +24768,7 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -24798,6 +24835,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
@@ -24813,6 +24851,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -24869,6 +24908,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    refreshToken?: string | null
   }
 
   export type AccountCreateManyTenantInput = {
@@ -24956,6 +24996,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
   }
@@ -24970,6 +25011,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -24984,6 +25026,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountUpdateWithoutTenantInput = {
